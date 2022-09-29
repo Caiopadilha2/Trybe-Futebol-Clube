@@ -1,6 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
 
-const JWT_SECRET = 'vasco';
+const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
 // https://stackoverflow.com/questions/65882838/how-to-solve-jsonwebtokenerror-invalid-signature-after-assigning-some-infos-to
 
 const createToken = (id: number, role: string, username: string, email: string) => {

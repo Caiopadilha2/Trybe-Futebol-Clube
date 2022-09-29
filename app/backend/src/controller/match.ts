@@ -14,11 +14,12 @@ import matchService from '../services/matches';
 const matchStatusQuery = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const matches = await matchService.getAll();
-    if (req.query.inProgress === 'true') {
+    const { inProgress } = req.query;
+    if (inProgress === 'true') {
       const andamento = matches.filter((match) => match.inProgress === true);
       return res.status(200).json(andamento);
     }
-    if (req.query.inProgress === 'false') {
+    if (inProgress === 'false') {
       const finalizada = matches.filter((match) => match.inProgress === false);
       return res.status(200).json(finalizada);
     }

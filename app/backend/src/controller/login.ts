@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import loginService from '../services/login';
-import jwt from '../helpers/token';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,13 +17,10 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { authorization } = req.headers;
-    if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
-    const valid = jwt.verifyToken(authorization);
+    const valid = await loginService.validateLogin(authorization);
+    if (!valid) return res.status(401).json({ message: 'Invalid token' });
 
-    if (!valid) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
     return res.status(200).json({ role: 'admin' });
   } catch (error) {
     return next(error);

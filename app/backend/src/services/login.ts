@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import UserModel from '../database/models/User';
-import token from '../helpers/token';
+import tokenHelper from '../helpers/token';
 
 const login = async (email: string, password: string) => {
   const user = await UserModel.findOne({ where: { email } });
@@ -11,9 +11,14 @@ const login = async (email: string, password: string) => {
   if (!userIsValid) {
     return false;
   }
-  const userToken = token.createToken(user.id, user.role, user.username, user.email);
+  const userToken = tokenHelper.createToken(user.id, user.role, user.username, user.email);
 
   return userToken;
 };
 
-export default { login };
+const validateLogin = async (token: any) => {
+  const result = tokenHelper.verifyToken(token);
+  return result;
+};
+
+export default { login, validateLogin };

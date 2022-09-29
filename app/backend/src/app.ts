@@ -33,7 +33,7 @@ class App {
     this.app.get('/teams', team.getAll);
     this.app.get('/teams/:id', team.getById);
 
-    this.app.get('/matches', match.getAll);
+    this.app.get('/matches/', match.matchStatusQuery);
   }
 
   public start(PORT: string | number):void {

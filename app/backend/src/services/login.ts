@@ -7,7 +7,7 @@ const login = async (email: string, password: string) => {
   if (!user) {
     return false;
   }
-  const userIsValid = await bcrypt.compare(password, user?.password);
+  const userIsValid = await bcrypt.compare(password, user.password);
   if (!userIsValid) {
     return false;
   }

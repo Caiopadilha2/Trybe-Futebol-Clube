@@ -1,15 +1,16 @@
-import jwt = require('jsonwebtoken');
+import { sign, verify } from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'vasco';
+const JWT_SECRET = 'vasco';
+// https://stackoverflow.com/questions/65882838/how-to-solve-jsonwebtokenerror-invalid-signature-after-assigning-some-infos-to
 
 const createToken = (id: number, role: string, username: string, email: string) => {
-  const token = jwt.sign({ id, role, username, email }, JWT_SECRET, { algorithm: 'HS256' });
+  const token = sign({ id, role, username, email }, JWT_SECRET, { algorithm: 'HS256' });
   return token;
 };
 
 const verifyToken = (token: string) => {
   try {
-    const dados = jwt.verify(token, JWT_SECRET);
+    const dados = verify(token, JWT_SECRET);
     return dados;
   } catch (error) {
     return null;

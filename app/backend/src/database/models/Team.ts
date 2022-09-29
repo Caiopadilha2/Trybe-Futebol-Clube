@@ -1,9 +1,7 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 class Team extends Model {
-  // public <campo>!: <tipo>;
   public id: number;
   public teamName: string;
 }

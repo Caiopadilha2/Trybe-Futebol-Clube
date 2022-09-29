@@ -26,6 +26,7 @@ class App {
     this.app.use(accessControl);
 
     this.app.post('/login', loginFildes, login.login);
+    this.app.get('/login/validate', login.validateLogin);
   }
 
   public start(PORT: string | number):void {

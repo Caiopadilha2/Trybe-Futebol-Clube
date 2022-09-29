@@ -2,6 +2,7 @@ import * as express from 'express';
 import login from './controller/login';
 import loginFildes from './middlewares/loginValidations';
 import team from './controller/team';
+import match from './controller/match';
 
 class App {
   public app: express.Express;
@@ -31,6 +32,8 @@ class App {
 
     this.app.get('/teams', team.getAll);
     this.app.get('/teams/:id', team.getById);
+
+    this.app.get('/matches', match.getAll);
   }
 
   public start(PORT: string | number):void {

@@ -6,4 +6,9 @@ const getAll = async () => {
   return teams;
 };
 
-export default { getAll };
+const getById = async (id: string) => {
+  const team = await teamModel.findByPk(id);
+  return team;
+};
+
+export default { getAll, getById };

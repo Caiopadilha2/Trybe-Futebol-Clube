@@ -30,6 +30,7 @@ class App {
     this.app.get('/login/validate', login.validateLogin);
 
     this.app.get('/teams', team.getAll);
+    this.app.get('/teams/:id', team.getById);
   }
 
   public start(PORT: string | number):void {

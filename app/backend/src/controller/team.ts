@@ -10,4 +10,14 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getAll };
+const getById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const team = await teamService.getById(id);
+    return res.status(200).json(team);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export default { getAll, getById };

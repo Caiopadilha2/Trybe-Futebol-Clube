@@ -10,4 +10,4 @@ const token = (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-export default { token };
+export default token;

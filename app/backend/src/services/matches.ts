@@ -25,4 +25,23 @@ const getAll = async () => {
   return matches;
 };
 
-export default { getAll };
+const create = async (
+  homeTeam: number,
+  awayTeam: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+) => {
+  const allTeams = await matchModel.findAll();
+  const haveHomeTeam = allTeams.filter((team) => team.id === homeTeam);
+  const haveAwayTeam = allTeams.filter((team) => team.id === awayTeam);
+
+  if (!haveHomeTeam || !haveAwayTeam) {
+    return 'There is no team with such id!';
+  }
+  const match = await matchModel
+    .create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress: true });
+
+  return match;
+};
+
+export default { getAll, create };

@@ -29,4 +29,18 @@ const matchStatusQuery = async (req: Request, res: Response, next: NextFunction)
   }
 };
 
-export default { matchStatusQuery };
+const create = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+    const match = await matchService.create(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals);
+
+    if (match === 'There is no team with such id!') {
+      return res.status(404).json({ message: 'There is no team with such id!' });
+    }
+    return res.status(201).json(match);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export default { matchStatusQuery, create };

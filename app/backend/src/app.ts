@@ -36,7 +36,7 @@ class App {
     this.app.get('/teams/:id', team.getById);
 
     this.app.get('/matches', match.matchStatusQuery);
-    this.app.post('/matches', tokenValidate.token, equalTeams.equalTeams);
+    this.app.post('/matches', tokenValidate, equalTeams, match.create);
   }
 
   public start(PORT: string | number):void {

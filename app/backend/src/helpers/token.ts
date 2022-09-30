@@ -8,7 +8,7 @@ const createToken = (id: number, role: string, username: string, email: string) 
   return token;
 };
 
-const verifyToken = (token: string) => {
+const verifyToken = (token: any) => {
   try {
     const dados = verify(token, JWT_SECRET);
     return dados;

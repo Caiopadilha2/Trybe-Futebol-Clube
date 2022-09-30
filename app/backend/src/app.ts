@@ -1,8 +1,10 @@
 import * as express from 'express';
 import login from './controller/login';
-import loginFildes from './middlewares/loginValidations';
 import team from './controller/team';
 import match from './controller/match';
+import loginFildes from './middlewares/loginValidations';
+import equalTeams from './middlewares/equalTeams';
+import tokenValidate from './middlewares/tokenValidation';
 
 class App {
   public app: express.Express;
@@ -33,7 +35,8 @@ class App {
     this.app.get('/teams', team.getAll);
     this.app.get('/teams/:id', team.getById);
 
-    this.app.get('/matches/', match.matchStatusQuery);
+    this.app.get('/matches', match.matchStatusQuery);
+    this.app.post('/matches', tokenValidate.token, equalTeams.equalTeams);
   }
 
   public start(PORT: string | number):void {

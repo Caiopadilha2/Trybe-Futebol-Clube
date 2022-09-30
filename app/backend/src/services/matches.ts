@@ -35,7 +35,7 @@ const create = async (
   const haveHomeTeam = allTeams.filter((team) => team.id === homeTeam);
   const haveAwayTeam = allTeams.filter((team) => team.id === awayTeam);
 
-  if (!haveHomeTeam || !haveAwayTeam) {
+  if (!haveHomeTeam.length || !haveAwayTeam.length) {
     return 'There is no team with such id!';
   }
   const match = await matchModel
@@ -44,4 +44,13 @@ const create = async (
   return match;
 };
 
-export default { getAll, create };
+const finishMatch = async (id: any) => {
+  const match = await matchModel.findOne({ where: { id } });
+  if (!match) return 'There is no match with such id';
+  match.inProgress = false;
+  match.save();
+  // https://www.luiztools.com.br/post/tutorial-de-crud-com-node-js-sequelize-e-mysql/
+  return 'finished';
+};
+
+export default { getAll, create, finishMatch };

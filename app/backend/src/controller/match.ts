@@ -43,4 +43,15 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { matchStatusQuery, create };
+const finishMatch = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const match = await matchService.finishMatch(id);
+    if (!match) return 'There is no match with such id';
+    return res.status(200).json({ message: 'Finished' });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export default { matchStatusQuery, create, finishMatch };

@@ -58,7 +58,7 @@ const update = async (id: any, homeTeamGoals: any, awayTeamGoals: any) => {
   if (!match) return 'There is no match with such id';
   match.homeTeamGoals = homeTeamGoals;
   match.awayTeamGoals = awayTeamGoals;
-  match.save();
+  await match.save();
   return 'updated';
 };
 

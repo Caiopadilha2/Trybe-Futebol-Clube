@@ -59,6 +59,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { homeTeamGoals, awayTeamGoals } = req.body;
     const match = await matchService.update(id, homeTeamGoals, awayTeamGoals);
+
     return res.status(200).json({ message: match });
   } catch (error) {
     return next(error);

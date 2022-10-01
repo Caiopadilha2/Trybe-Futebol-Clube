@@ -38,6 +38,7 @@ class App {
     this.app.get('/matches', match.matchStatusQuery);
     this.app.post('/matches', tokenValidate, equalTeams, match.create);
     this.app.patch('/matches/:id/finish', match.finishMatch);
+    this.app.patch('/matches/:id', match.update);
   }
 
   public start(PORT: string | number):void {

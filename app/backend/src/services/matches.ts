@@ -53,4 +53,13 @@ const finishMatch = async (id: any) => {
   return 'finished';
 };
 
-export default { getAll, create, finishMatch };
+const update = async (id: any, homeTeamGoals: any, awayTeamGoals: any) => {
+  const match = await matchModel.findOne({ where: { id } });
+  if (!match) return 'There is no match with such id';
+  match.homeTeamGoals = homeTeamGoals;
+  match.awayTeamGoals = awayTeamGoals;
+  match.save();
+  return 'updated';
+};
+
+export default { getAll, create, finishMatch, update };

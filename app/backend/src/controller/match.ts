@@ -54,4 +54,15 @@ const finishMatch = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { matchStatusQuery, create, finishMatch };
+const update = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const match = await matchService.update(id, homeTeamGoals, awayTeamGoals);
+    return res.status(200).json({ message: match });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export default { matchStatusQuery, create, finishMatch, update };

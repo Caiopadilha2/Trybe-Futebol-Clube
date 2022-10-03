@@ -41,6 +41,7 @@ class App {
     this.app.patch('/matches/:id/finish', match.finishMatch);
     this.app.patch('/matches/:id', match.update);
     this.app.get('/leaderboard/home', leaderBoard.rankingHome);
+    this.app.get('/leaderboard/away', leaderBoard.rankingAway);
   }
 
   public start(PORT: string | number):void {

@@ -62,4 +62,23 @@ const update = async (id: any, homeTeamGoals: any, awayTeamGoals: any) => {
   return 'updated';
 };
 
-export default { getAll, create, finishMatch, update };
+const getFinishedMatches = async () => {
+  const finishedMatches = await matchModel.findAll({ where: { inProgress: false },
+    include: [
+      {
+        model: teamModel,
+        as: 'teamHome',
+        attributes: { exclude: ['id'] },
+      },
+      {
+        model: teamModel,
+        as: 'teamAway',
+        attributes: { exclude: ['id'] },
+      },
+    ],
+  });
+
+  return finishedMatches;
+};
+
+export default { getAll, create, finishMatch, update, getFinishedMatches };

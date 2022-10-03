@@ -5,6 +5,7 @@ import match from './controller/match';
 import loginFildes from './middlewares/loginValidations';
 import equalTeams from './middlewares/equalTeams';
 import tokenValidate from './middlewares/tokenValidation';
+import leaderBoard from './controller/leaderBoard';
 
 class App {
   public app: express.Express;
@@ -39,6 +40,7 @@ class App {
     this.app.post('/matches', tokenValidate, equalTeams, match.create);
     this.app.patch('/matches/:id/finish', match.finishMatch);
     this.app.patch('/matches/:id', match.update);
+    this.app.get('/leaderboard/home', leaderBoard.rankingHome);
   }
 
   public start(PORT: string | number):void {

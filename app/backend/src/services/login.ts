@@ -7,11 +7,11 @@ const login = async (email: string, password: string) => {
   if (!user) {
     return false;
   }
-  const userIsValid = await bcrypt.compare(password, user?.password);
+  const userIsValid = await bcrypt.compare(password, user.password);
   if (!userIsValid) {
     return false;
   }
-  const userToken = tokenHelper.createToken(user?.id, user?.role, user?.username, user?.email);
+  const userToken = tokenHelper.createToken(user.id, user.role, user.username, user.email);
 
   return userToken;
 };

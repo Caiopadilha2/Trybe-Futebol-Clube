@@ -59,4 +59,25 @@ describe('Testes de login', () => {
       expect(response.body.message).to.be.equal('Incorrect email or password');
     });
   });
+  describe('login sem senha', () => {
+    let response: Response;
+
+    const loginMock = {
+      email: 'caio@caio.com.br',
+    };
+
+    before(async () => {
+      response = await (chai.request(app).
+      post('/login').
+      send(loginMock as userModel))
+    });
+
+    it('status 401', () => {
+      expect(response).to.have.status(400);
+    });
+
+    it('Retorna mensagem de tentativa de fazer login sem enviar uma senha', () => {
+      expect(response.body.message).to.be.equal('All fields must be filled');
+    });
+  });
 });
